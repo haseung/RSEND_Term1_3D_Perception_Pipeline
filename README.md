@@ -24,6 +24,7 @@ The first step in developing the 3D perception pipeline for a tabletop pick and 
 (PCD with Statistical Outlier Filter applied)
 
 2. Voxel Downsampling Filter - The Voxel Downsample filter is used to derive a point cloud with fewer points but still does a good job representing the overall point cloud.
+
 ![Voxel Downsampling Filter](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/voxel_downsampling.JPG)
 (PCD with Voxel Downsampling Filter applied)
 
@@ -32,7 +33,7 @@ The first step in developing the 3D perception pipeline for a tabletop pick and 
 ![Passthrough Filter](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/pass_through_filtered_zy.JPG)
 (PCD with Pass Through Filter in Z and Y axis applied)
 
-4. RANSAC plane segmentation - Lastly, the objects are removed from the table using a Random Sample Consensus or RANSAC algorithm.  RANSAC works by assuming all of the data in the dataset is composed of inliers and outliers.  Whether a set of data is considered an inlier if it fits a particular model based on a specific set parameter.  In this scenario the model type is pcl.SACMODEL_PLANE and the parameter is a max distance from that predefined model.  As the filtered Point Cloud Data only contains the table and objects, the table fits a PLANE and thus will be considered an INLIER.  By extracting the outliers we obtain the desired objects on the table.  
+4. RANSAC plane segmentation - Lastly, the objects are removed from the table using a Random Sample Consensus or RANSAC algorithm.  RANSAC works by assuming all of the data in the dataset is composed of inliers and outliers.  Whether a set of data is considered an inlier if it fits a particular model based on a specific set parameter.  In this scenario the model type is pcl.SACMODEL_PLANE and the parameter is a max distance from that predefined model.  As the filtered Point Cloud Data only contains the table and objects, the table fits a PLANE and thus will be considered an INLIER.  By extracting the outliers we obtain the desired objects on the table.
 
 ![Extracted Inliers](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/extracted_inliers.JPG)
 (PCD with RANSAC plane segmentation applied.  Extracted inliers)
@@ -106,11 +107,11 @@ In order to switch between test worlds the following modifications were required
 
 The success of the PR2 robot in recognizing an object and correctly placing it in the designated bin relies on the accuracy of the SVM model trained.  For the purposes of this project, the accuracy of the models ranged from 83% to 93% were sufficient to meet the minimum required object recognition.  For an industrial application where thousands of products would be processed, a 10% error could lead to significant attrition.  With more time, I would modify the parameters for the capture_features operation, increasing iterations per object and experimenting with different kernels to improve accuracy.  
 
-!['Test World 1'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/statistical_outlier.JPG)
+!['Test World 1'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/Capture_test1.JPG)
 (Test World 1 Object Recognition)
 
-!['Test World 2'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/statistical_outlier.JPG)
+!['Test World 2'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/Capture_test2.JPG)
 (Test World 2 Object Recognition)
 
-!['Test World 3'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/statistical_outlier.JPG)
+!['Test World 3'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/Capture_test3.JPG)
 (Test World 3 Object Recognition)
