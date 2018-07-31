@@ -153,12 +153,14 @@ def pcl_callback(pcl_msg):
     #--------------------------------------------------------------------------    
     # TODO: Extract inliers and outliers
     #--------------------------------------------------------------------------    
+    # Obtain PCD for tabletop
     extracted_inliers = cloud_filtered.extract(inliers, negative=False)   
     cloud_table = extracted_inliers
 
     # filename = 'extracted_inliers.pcd'
     # pcl.save(extracted_inliers, filename)
    
+    # Obtain PCD for objects
     extracted_outliers = cloud_filtered.extract(inliers, negative=True)    
     cloud_objects = extracted_outliers
 
@@ -311,12 +313,14 @@ def pr2_mover(object_list):
     #------------------------------------------------------------------------------
     # TODO: Get/Read parameters
     #------------------------------------------------------------------------------
-    object_list_param = rospy.get_param('/object_list')
+    # Obtain name and group for all objects in pick list
+    object_list_param = rospy.get_param('/object_list') 
     # print(object_list_param)
     
+    # Obtain all parameters for dropboxes in dropbox.yaml
     dropbox_param = rospy.get_param('/dropbox')
 
-     #------------------------------------------------------------------------------
+    #------------------------------------------------------------------------------
     # Grab labels, access the XYZ coords of each point and compute centroid of detected objects
     #------------------------------------------------------------------------------
     labels = []
@@ -341,7 +345,8 @@ def pr2_mover(object_list):
         #----------------------------------------------------------------------
         # TODO: Get the PointCloud for a given object and obtain it's centroid
         #----------------------------------------------------------------------    
-        pick_pose.position.x = np.asscalar(centroids[i][0])
+        # Assign object positions to pick_pose
+         pick_pose.position.x = np.asscalar(centroids[i][0])
         pick_pose.position.y = np.asscalar(centroids[i][1])
         pick_pose.position.z = np.asscalar(centroids[i][2])  
       
@@ -349,15 +354,16 @@ def pr2_mover(object_list):
         # TODO: Create 'place_pose' for the object and assign the arm to be used for pick_place
         #--------------------------------------------------------------------------
         if object_group == 'red':
-            dropbox_position = dropbox_param[0]['position'] 
-            arm_name.data = 'left'           
+            dropbox_position = dropbox_param[0]['position'] # grabs position for red dropbox
+            arm_name.data = 'left' # assigns left arm for PR2 mover to use           
         elif object_group == 'green':
-            dropbox_position = dropbox_param[1]['position']
-            arm_name.data = 'right'
+            dropbox_position = dropbox_param[1]['position'] # grabs position for green dropbox
+            arm_name.data = 'right' # assigns right arm for PR2 mover to use
         else:        
             print('Error reading dropbox position')    
       
-        place_pose.position.x = dropbox_position[0]
+        # Assign dropbox positions to place_pose
+        place_pose.position.x = dropbox_position[0] 
         place_pose.position.y = dropbox_position[1]
         place_pose.position.z = dropbox_position[2]
      
