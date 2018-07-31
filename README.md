@@ -1,10 +1,6 @@
 ## Project: Perception Pick & Place
 ### Author: Harrison Seung
 ### Date: 07/30/2018
---
-
-## [Rubric](https://review.udacity.com/#!/rubrics/1067/view) Points
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
 ### Writeup / README
@@ -46,7 +42,7 @@ The first step in developing the 3D perception pipeline for a tabletop pick and 
 The second step in the 3D Perception pipeline is to implement the steps from Exercise 1 into a ROS node and subscribe to '/pr2/world/points' topic.  This will extract the image from the PR2 RGBD sensor to be filtered.  Once the image and filtering has been performed, the next step is to apply Euclidean clustering to create separate clusters for each item on the table.
 
 !['/pr2/world/points' topic shown](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/Topics.JPG)
-(Required topics subscribed and published too)
+(List of subscribed and published topics)
 
 !['/pr2/world/points' topic shown](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/pcl_cluster.JPG)
 (PCL clustered)
@@ -56,14 +52,14 @@ The second step in the 3D Perception pipeline is to implement the steps from Exe
 The third step in the 3D Perception project is to implement Object recognition.  This is done by first generating a training set of features corresponding to the pick lists for test worlds 1, 2 or 3 using the 'captures_features.py' script resulting in the 'training_set.sav' file.
 
 ![capture features](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/capture_features.JPG)
-(Capturing features for pick list 3)
+(Capturing features for each individual model)
 
 The 'training_set.sav' file is then used to train the SVM with features from the new models, saved in 'model.sav'.  The relative accuracy of the model is shown below.
 
 !['confusion matrix'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/CMWN%20Test1.png)
 (Confusion matrix without normalization for Test World 1)
 
-!['normalized confusion matrix'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/NCM%20Test1.png.JPG)
+!['normalized confusion matrix'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/NCM%20Test1.png)
 (Normalized confusion matrix for Test World 1)
 
 !['confusion matrix'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/CMWN%20Test2.png)
@@ -88,7 +84,7 @@ In order to switch between test worlds the following modifications were required
 
 1. In 'capture_features.py', change the 'models' variable to the desired pick_list
   
-  !['pick_list_1'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/pick_list_1.jpg)
+  !['Pick List 1'](https://github.com/haseung/term1_project3_3Dperception/blob/master/Figures/pick_list_1.JPG)
   (Example: Pick List 1)
 
 2. In 'pick_place_project.launch', modify the following line to the desired test world:  
